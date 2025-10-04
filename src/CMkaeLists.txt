@@ -1,0 +1,19 @@
+find_package(pugixml REQUIRED)
+find_package(cpr REQUIRED)
+find_package(spdlog REQUIRED)
+
+add_library(collector_lib 
+  feed_reader.cpp
+)
+
+target_link_libraries(collector_lib PRIVATE
+  cpr::cpr
+  pugixml::pugixml
+  spdlog::spdlog
+  gtest::gtest
+)
+
+target_include_directories(collector_lib PUBLIC ${CMAKE_SOURCE_DIR}/include)
+
+add_executable(collector main.cpp)
+target_link_libraries(collector PRIVATE collector_lib)
