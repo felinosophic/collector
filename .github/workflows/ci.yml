@@ -30,11 +30,10 @@ jobs:
       run: |
         pip install conan
         conan profile detect --force
-        conan profile update settings.build_type=Debug default
 
     # 4. Run Conan to install dependencies
     - name: Install dependencies
-      run: conan install . --profile:host=default --build=missing
+      run: conan install . --profile:host=debug --build=missing
 
     # 5. Configure the CMake project
     - name: Configure CMake
