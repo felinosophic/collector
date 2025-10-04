@@ -30,6 +30,7 @@ jobs:
       run: |
         pip install conan
         conan profile detect --force
+        conan profile update settings.build_type=Debug default
 
     # 4. Run Conan to install dependencies
     - name: Install dependencies
