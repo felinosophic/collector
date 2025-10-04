@@ -33,7 +33,7 @@ jobs:
 
     # 4. Run Conan to install dependencies
     - name: Install dependencies
-      run: conan install . --profile:host=debug --build=missing
+      run: conan install . --profile:host=default -s build_type=Debug --build=missing
 
     # 5. Configure the CMake project
     - name: Configure CMake
