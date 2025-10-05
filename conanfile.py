@@ -9,6 +9,7 @@ class CollectorRecipe(ConanFile):
        self.requires("pugixml/1.15")
        self.requires("spdlog/1.15.3")
        self.requires("gtest/1.17.0")
+
     
     def layout(self):
         build_folder = str(self.settings.build_type).lower()
