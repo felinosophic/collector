@@ -34,7 +34,7 @@ Article convert_node_to_article(const pugi::xpath_node item,
   article.url = item_node.child("link").text().get();
   article.published_date = item_node.child("pubDate").text().get();
   article.summary = item_node.child("description").text().get();
-  article.source = item_node.child("description").text().get();
+  article.source = source;
 
   return article;
 }
