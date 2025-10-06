@@ -3,6 +3,7 @@ find_package(cpr REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(libpqxx REQUIRED)
 find_package(llama-cpp REQUIRED)
+find_package(OpenMP REQUIRED)
 
 add_library(collector_lib 
   feed_reader.cpp
@@ -23,4 +24,5 @@ target_include_directories(collector_lib PUBLIC ${CMAKE_SOURCE_DIR}/include)
 add_executable(fetcher fetcher_main.cpp)
 target_link_libraries(fetcher PRIVATE 
   collector_lib
+  OpenMP::OpenMP_CXX
 )
