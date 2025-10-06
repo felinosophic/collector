@@ -2,4 +2,4 @@
 # not a complete OS/compiler configuration.
 
 [conf]
-tools.build:cflags=["-std=c17"]
+tools.build:cflags=["-std=gnu17", "-D_DEFAULT_SOURCE"]
