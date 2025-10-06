@@ -10,7 +10,7 @@ add_library(collector_lib
   article_repository.cpp
 )
 
-target_link_libraries(collector_lib PRIVATE
+target_link_libraries(collector_lib PUBLIC
   cpr::cpr
   pugixml::pugixml
   spdlog::spdlog
@@ -23,4 +23,5 @@ target_include_directories(collector_lib PUBLIC ${CMAKE_SOURCE_DIR}/include)
 add_executable(fetcher fetcher_main.cpp)
 target_link_libraries(fetcher PRIVATE 
   spdlog::spdlog
-  collector_lib)
+  collector_lib
+)
