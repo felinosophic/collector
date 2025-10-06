@@ -61,3 +61,4 @@ conan_toolchain.cmake
 session.vim
 
 *.log
+*.gguf

@@ -5,7 +5,7 @@
 #include <stdexcept>
 namespace {
 
-std::string get_rss(const std::string &url) {
+std::string get_rss(const std::string& url) {
   auto r = cpr::Get(cpr::Url{url});
   if (r.status_code == 0 || r.status_code >= 400) {
     std::string error = fmt::format("Feed Url {} could not be reached", url);
@@ -14,7 +14,7 @@ std::string get_rss(const std::string &url) {
   return r.text;
 }
 
-pugi::xml_document get_xml_doc(const std::string &rss) {
+pugi::xml_document get_xml_doc(const std::string& rss) {
   pugi::xml_document doc;
   const auto result = doc.load_string(rss.c_str());
   if (!result) {
@@ -25,9 +25,10 @@ pugi::xml_document get_xml_doc(const std::string &rss) {
   }
   return doc;
 }
-
+} // namespace
+namespace collector {
 Article convert_node_to_article(const pugi::xpath_node item,
-                                const std::string &source) {
+                                const std::string& source) {
   auto item_node = item.node();
   Article article;
   article.title = item_node.child("title").text().get();
@@ -38,8 +39,6 @@ Article convert_node_to_article(const pugi::xpath_node item,
 
   return article;
 }
-
-} // namespace
 
 FeedReader::FeedReader(std::string_view url) { feed_url_ = url; }
 std::vector<Article> FeedReader::fetch() const {
@@ -55,3 +54,4 @@ std::vector<Article> FeedReader::fetch() const {
   }
   return articles;
 }
+} // namespace collector

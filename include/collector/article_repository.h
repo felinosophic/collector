@@ -2,7 +2,7 @@
 #include "collector/article.h"
 #include <pqxx/pqxx>
 #include <vector>
-
+namespace collector {
 class ArticleRepository {
 public:
   ArticleRepository(std::string_view connection_string)
@@ -11,7 +11,7 @@ public:
       throw std::runtime_error("Can't connect to database!");
     }
   };
-  int insert_article(const Article &article);
+  int insert_article(const Article& article);
   std::vector<Article> get_articles_by_state(ProcessingState state);
   int update_state(int id, ProcessingState new_state);
   int update_embedding(int id, const std::vector<float>& embedding);
@@ -21,3 +21,4 @@ private:
   pqxx::connection conn;
   pqxx::result run_sql(const std::string& sql, const pqxx::params& params);
 };
+} // namespace collector

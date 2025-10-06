@@ -1,0 +1,5 @@
+# This profile only contains project-specific build fixes,
+# not a complete OS/compiler configuration.
+
+[conf]
+tools.build:cflags=["-std=c17"]

@@ -7,7 +7,7 @@ TEST(FeedReaderIntegrationTest, CanFetchKnownRssFeed) {
   size_t n = 0;
 
   try {
-    FeedReader feed(url);
+    collector::FeedReader feed(url);
     auto articles = feed.fetch();
     n = articles.size();
   } catch (const std::runtime_error &e) {

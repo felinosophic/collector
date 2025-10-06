@@ -29,7 +29,7 @@ int main() {
         std::format("host=localhost dbname=collector user={} password={}",
                     db_user, db_password);
 
-    ArticleRepository repo(conn_str);
+    collector::ArticleRepository repo(conn_str);
     spdlog::info("Connected to database");
 
     // Hardcoded feed URLs (just Hacker News for now)
@@ -47,7 +47,7 @@ int main() {
     // Process each feed
     for (const auto &feed_url : feed_urls) {
       try {
-        FeedReader reader(feed_url);
+        collector::FeedReader reader(feed_url);
         spdlog::info("Fetching feed: {}", feed_url);
         auto articles = reader.fetch();
         total_fetched += articles.size();
@@ -59,7 +59,7 @@ int main() {
           try {
             // Set source to the feed URL
             article.source = feed_url;
-            article.processing_state = ProcessingState::unprocessed;
+            article.processing_state = collector::ProcessingState::unprocessed;
 
             int id = repo.insert_article(article);
             if (id == -1) {

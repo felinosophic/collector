@@ -6,7 +6,7 @@
 #include <stdexcept>
 
 namespace {
-std::string to_pgvector_string(const std::vector<float> &vec) {
+std::string to_pgvector_string(const std::vector<float>& vec) {
   if (vec.empty()) {
     return "[]";
   }
@@ -22,14 +22,16 @@ std::string to_pgvector_string(const std::vector<float> &vec) {
   return ss.str();
 }
 } // namespace
-pqxx::result ArticleRepository::run_sql(const std::string &sql,
-                                        const pqxx::params &params) {
+
+namespace collector {
+pqxx::result ArticleRepository::run_sql(const std::string& sql,
+                                        const pqxx::params& params) {
   try {
     pqxx::work tx(conn);
     pqxx::result result = tx.exec(sql, params);
     tx.commit();
     return result;
-  } catch (std::exception const &e) {
+  } catch (std::exception const& e) {
     throw std::runtime_error(std::format("DB statement failed: {}", e.what()));
   }
 }
@@ -51,7 +53,7 @@ ArticleRepository::get_articles_by_state(ProcessingState state) {
 
   auto result = run_sql(sql, params);
   std::vector<Article> articles;
-  for (const auto &row : result) {
+  for (const auto& row : result) {
     Article article;
     article.id = row["id"].as<int>();
     article.title = row["title"].as<std::string>();
@@ -80,7 +82,7 @@ ArticleRepository::get_articles_by_state(ProcessingState state) {
   return articles;
 }
 
-int ArticleRepository::insert_article(const Article &article) {
+int ArticleRepository::insert_article(const Article& article) {
   if (article_exists(article.url)) {
     return -1;
   }
@@ -118,7 +120,7 @@ int ArticleRepository::update_state(int id, ProcessingState new_state) {
 }
 
 int ArticleRepository::update_embedding(int id,
-                                        const std::vector<float> &embedding) {
+                                        const std::vector<float>& embedding) {
 
   const std::string sql = "UPDATE articles "
                           "SET embedding  = $1 "
@@ -130,3 +132,4 @@ int ArticleRepository::update_embedding(int id,
 
   return result.affected_rows();
 }
+} // namespace collector

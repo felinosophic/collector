@@ -1,26 +1,16 @@
-#pragma once 
+#pragma once
 
 #include <optional>
 #include <string>
 #include <vector>
+namespace collector {
+enum ProcessingState { unprocessed, embedded, classified };
 
-enum ProcessingState {
-  unprocessed,
-  embedded,
-  classified
-};
-
-enum RelevanceRating {
-  very_unlikely,
-  unlikely,
-  likely,
-  very_likely,
-  unsure
-};
+enum RelevanceRating { very_unlikely, unlikely, likely, very_likely, unsure };
 
 std::string to_string(ProcessingState state);
 std::string to_string(RelevanceRating rating);
-ProcessingState state_from_string(std::string_view str);  
+ProcessingState state_from_string(std::string_view str);
 RelevanceRating rating_from_string(std::string_view str);
 
 struct Article {
@@ -37,3 +27,4 @@ struct Article {
   std::optional<std::string> relevance_reason;
   std::optional<int> duplicate_of_id;
 };
+} // namespace collector
