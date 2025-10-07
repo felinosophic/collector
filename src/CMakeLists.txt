@@ -9,6 +9,7 @@ add_library(collector_lib
   feed_reader.cpp
   article.cpp
   article_repository.cpp
+  embedder.cpp
 )
 
 target_link_libraries(collector_lib PUBLIC

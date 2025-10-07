@@ -1,10 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-
-// Forward declarations
-struct llama_model;
-struct llama_context;
+#include <llama.h>
 
 namespace collector {
 

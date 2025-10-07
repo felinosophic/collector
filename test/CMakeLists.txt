@@ -4,6 +4,7 @@ find_package(OpenMP REQUIRED)
 add_executable(run_tests
     setup_test.cpp  
     feed_reader_test.cpp
+    test_embedder.cpp
 )
 target_include_directories(run_tests PUBLIC ${CMAKE_SOURCE_DIR}/include)
 

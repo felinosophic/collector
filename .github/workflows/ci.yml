@@ -25,6 +25,17 @@ jobs:
       with:
         python-version: '3.10'
 
+    - name: Download embedding model (curl)
+      run: |
+        mkdir -p model
+        curl -L -o model/bge-m3-Q8_0.gguf \
+          "https://huggingface.co/gpustack/bge-m3-GGUF/resolve/main/bge-m3-Q8_0.gguf"
+
+    - uses: actions/cache@v4
+      with:
+        path: model
+        key: bge-m3-q8_${{ hashFiles('model/.pin_embedding') }}
+
     # 3. Install and configure Conan
     - name: Install and configure Conan
       run: |
