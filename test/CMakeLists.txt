@@ -11,4 +11,6 @@ target_include_directories(run_tests PUBLIC ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(run_tests PRIVATE GTest::gtest_main collector_lib OpenMP::OpenMP_CXX)
 
 include(GoogleTest)
-gtest_discover_tests(run_tests)
+gtest_discover_tests(run_tests
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+)
