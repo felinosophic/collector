@@ -61,7 +61,7 @@ ArticleRepository::get_articles_by_state(ProcessingState state) {
     article.summary = row["summary"].as<std::string>();
     article.content = row["content"].as<std::string>();
     article.published_date = row["published_date"].as<std::string>();
-    article.source = row["source"].as<std::string>();
+    article.source = row["url"].as<std::string>();
     article.processing_state =
         state_from_string(row["processing_state"].as<std::string>());
 
@@ -88,7 +88,7 @@ int ArticleRepository::insert_article(const Article& article) {
   }
   const std::string sql = "INSERT INTO articles "
                           "(title, url, summary, content, published_date, "
-                          "source, processing_state) "
+                          "url, processing_state) "
                           "VALUES ($1, $2, $3, $4, $5, $6, $7) "
                           "RETURNING id";
   pqxx::params params{article.title,
